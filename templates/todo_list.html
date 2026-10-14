@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rust Todos</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="container">
+    <header class="page-header">
+        <h1>Rust Todos</h1>
+        <a class="button" href="/todos/new">Add a todo</a>
+    </header>
+
+    <form class="filters" method="get" action="/todos">
+        <label>
+            Search
+            <input type="search" name="q" value="{{ search }}" placeholder="Find a todo">
+        </label>
+        <label>
+            Show
+            <select name="status">
+                <option value="all" {% if status == "all" %}selected{% endif %}>All todos</option>
+                <option value="active" {% if status == "active" %}selected{% endif %}>Active</option>
+                <option value="completed" {% if status == "completed" %}selected{% endif %}>Completed</option>
+            </select>
+        </label>
+        <button type="submit">Apply</button>
+        <a href="/todos">Clear</a>
+    </form>
+
+    {% if todos.is_empty() %}
+        <p class="empty">No todos match. Add one to get started.</p>
+    {% else %}
+        <ul class="todo-list">
+            {% for todo in todos %}
+                <li class="todo-item {% if todo.completed %}completed{% endif %}">
+                    <span class="todo-title">{{ todo.title }}</span>
+                    <div class="actions">
+                        <form method="post" action="/todos/{{ todo.id }}/toggle">
+                            <button type="submit">{% if todo.completed %}Reopen{% else %}Complete{% endif %}</button>
+                        </form>
+                        <a href="/todos/{{ todo.id }}/edit">Edit</a>
+                        <form method="post" action="/todos/{{ todo.id }}/delete">
+                            <button class="danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</main>
+</body>
+</html>

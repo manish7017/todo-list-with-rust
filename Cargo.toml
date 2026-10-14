@@ -1,0 +1,17 @@
+[package]
+name = "rust-todos"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+askama = "0.14"
+axum = { version = "0.8", features = ["form", "query"] }
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "sqlite"] }
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["macros", "net", "rt-multi-thread"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+tempfile = "3"
+tower = { version = "0.5", features = ["util"] }

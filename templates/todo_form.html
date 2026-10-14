@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ heading }} - Rust Todos</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="container narrow">
+    <h1>{{ heading }}</h1>
+    {% if let Some(message) = error %}
+        <p class="error" role="alert">{{ message }}</p>
+    {% endif %}
+    <form class="todo-form" method="post" action="{{ action }}">
+        <label for="title">Todo title</label>
+        <input id="title" name="title" value="{{ title }}" maxlength="200" required autofocus>
+        <div class="actions">
+            <button type="submit">Save</button>
+            <a href="/todos">Cancel</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>
